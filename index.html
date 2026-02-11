@@ -49,7 +49,7 @@
             box-shadow: -5px 0 20px rgba(0,0,0,0.05);
             overflow-y: auto;
             z-index: 100;
-            position: relative; /* Changed from fixed to flow with flexbox */
+            position: relative; /* Flow with flexbox to keep it always visible */
             height: 100%;
         }
 
@@ -205,6 +205,73 @@
             </svg>
         `;
 
+        const svgExperiment = `
+        <svg class="diagram-svg" width="400" height="280" viewBox="0 0 400 280">
+            <!-- Step 1: Sample -->
+            <g transform="translate(150, 10)">
+                <rect x="0" y="0" width="100" height="30" rx="5" fill="#f8f9fa" stroke="#333" />
+                <text x="50" y="20" font-weight="bold">503 Students</text>
+            </g>
+
+            <!-- Arrow down -->
+            <line x1="200" y1="40" x2="200" y2="60" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+            <!-- Step 2: Randomization -->
+            <circle cx="200" cy="75" r="15" fill="#fbbc04" stroke="#e37400" />
+            <text x="200" y="80" fill="#fff" font-weight="bold" font-size="14">R</text>
+            <text x="225" y="80" font-size="12" text-anchor="start">Random Assignment</text>
+
+            <!-- Split Arrows -->
+            <path d="M 200 90 L 100 120" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+            <path d="M 200 90 L 300 120" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+            <!-- Step 3: Groups -->
+            
+            <!-- Treatment -->
+            <g transform="translate(50, 120)">
+                <rect x="0" y="0" width="100" height="60" rx="5" fill="#e8f0fe" stroke="#1a73e8" />
+                <text x="50" y="20" font-weight="bold" fill="#1a73e8">Treatment</text>
+                <rect x="20" y="30" width="60" height="20" fill="#fff" stroke="#1a73e8" stroke-dasharray="2,2"/>
+                <text x="50" y="45" font-size="10">"Manning is GOP"</text>
+            </g>
+
+            <!-- Control -->
+            <g transform="translate(250, 120)">
+                <rect x="0" y="0" width="100" height="60" rx="5" fill="#fce8e6" stroke="#c5221f" />
+                <text x="50" y="20" font-weight="bold" fill="#c5221f">Control</text>
+                <rect x="20" y="30" width="60" height="20" fill="#fff" stroke="#c5221f" stroke-dasharray="2,2"/>
+                <text x="50" y="45" font-size="10">"Manning likes pets"</text>
+            </g>
+
+            <!-- Step 4: Measure -->
+            <line x1="100" y1="180" x2="100" y2="210" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+            <line x1="300" y1="180" x2="300" y2="210" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+            <g transform="translate(50, 210)">
+                <rect x="0" y="0" width="100" height="30" rx="5" fill="#fff" stroke="#333" />
+                <text x="50" y="20" font-size="11">Measure Views</text>
+            </g>
+            
+            <g transform="translate(250, 210)">
+                <rect x="0" y="0" width="100" height="30" rx="5" fill="#fff" stroke="#333" />
+                <text x="50" y="20" font-size="11">Measure Views</text>
+            </g>
+
+            <!-- Step 5: Compare -->
+            <path d="M 150 225 L 250 225" stroke="#333" stroke-width="2" stroke-dasharray="4"/>
+            <circle cx="200" cy="225" r="15" fill="#333" />
+            <text x="200" y="230" fill="#fff" font-weight="bold" font-size="16">≠</text>
+            <text x="200" y="260" font-weight="bold" font-size="12">Difference = Causal Effect</text>
+
+            <!-- Defs -->
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+                </marker>
+            </defs>
+        </svg>
+        `;
+
         // --- DATA STRUCTURE ---
         const treeData = {
             name: "Causation",
@@ -229,6 +296,7 @@
                     name: "3. Classical Experiment",
                     type: "Method",
                     description: "The randomized controlled experiment is the 'Gold Standard' because it automatically satisfies the three components.",
+                    diagram: svgExperiment,
                     children: [
                         { 
                             name: "Randomization", 
